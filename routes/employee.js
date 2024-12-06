@@ -26,7 +26,7 @@ router
 router
 .route('/create')
 .get(async(req,res)=>{
-    return res.render("employee_creation");
+    return res.render("employee_creation",{user: req.user});
 })
 .post(upload.single('coverImage'), async (req, res) => {
     try {
@@ -68,7 +68,7 @@ router
         if (!employee) {
             return res.status(404).send('Employee not found'); 
         }
-        return res.render("employee_edit", { employee });
+        return res.render("employee_edit", { employee,user: req.user });
     } catch (err) {
         console.error("Error fetching employee for edit:", err.message);
         res.status(500).send("Internal Server Error"); 
@@ -94,7 +94,7 @@ router
         res.status(400).send(err.message);
     }
 });
-router.route("/delete/:id").delete(async (req, res) => {
+router.route("/delete/:id").post(async (req, res) => {
     try {
         const { id } = req.params; 
         const deletedEmployee = await Employee.findByIdAndDelete(id); 
