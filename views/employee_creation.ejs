@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("./partials/head.ejs") %>
+    <title>Create Employee</title>
+</head>
+<body>
+    <%- include("./partials/nav.ejs") %>
+    <div class="container m-3">
+        <h1>Create Employee</h1>
+        <form action="/employee/create" method="POST" enctype="multipart/form-data">
+            <div>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div>
+                <label for="mobileNo">Mobile No:</label>
+                <input type="text" id="mobileNo" name="mobileNo" maxlength="10" pattern="\d{10}" required>
+            </div>
+            <div>
+                <label for="designation">Designation:</label>
+                <select id="designation" name="designation" required>
+                    <option value="">Select</option>
+                    <option value="HR">HR</option>
+                    <option value="Manager">Manager</option>
+                    <option value="Sales">Sales</option>
+                </select>
+            </div>
+            <div>
+                <label>Gender:</label>
+                <input type="radio" name="gender" value="Male" required> Male
+                <input type="radio" name="gender" value="Female" required> Female
+            </div>
+            <div>
+                <label>Course:</label>
+                <input type="checkbox" name="course" value="MCA"> MCA
+                <input type="checkbox" name="course" value="BCA"> BCA
+                <input type="checkbox" name="course" value="BSC"> BSC
+            </div>
+            <div>
+                <label for="coverImage">Upload Image:</label>
+                <input type="file" id="coverImage" name="coverImage" accept=".jpg, .png">
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <%- include("./partials/scripts.ejs") %>
+</body>
+</html>

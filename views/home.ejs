@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("./partials/head.ejs") %> 
+    <title>HomePage</title>
+    <style>
+        #dashboard {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-top: 20px; 
+        }
+
+        #welcome-message {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-top: 20px;
+            color: #555; 
+        }
+
+        #auth-message {
+            text-align: center;
+            font-size: 1.2rem;
+            margin-top: 20px;
+            color: red;
+        }
+
+        #auth-links {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        #auth-links a {
+            color: blue;
+            text-decoration: underline;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <%- include("./partials/nav.ejs") %> 
+
+    <% if (user) { %>
+        <div id="dashboard">
+            Dashboard
+        </div>
+
+        <div id="welcome-message">
+            Welcome, <%= user.name %>!
+        </div>
+    <% } else { %>
+        <div id="auth-message">
+            You need to sign up or sign in to use our services.
+        </div>
+        <div id="auth-links">
+            <a href="/user/signup">Sign Up</a> | <a href="/user/signin">Sign In</a>
+        </div>
+    <% } %>
+
+    <%- include("./partials/scripts.ejs") %> 
+</body>
+</html>

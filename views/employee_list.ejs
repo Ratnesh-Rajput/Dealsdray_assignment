@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("./partials/head.ejs") %>
+    <title>Employee List</title>
+</head>
+<body>
+    <%- include("./partials/nav.ejs") %> 
+
+    <div class="container my-4">
+        <h1>Employee List</h1>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>Total Count: <%= employees.length %></div>
+            <button class="btn btn-success" onclick="window.location.href='/employee/create'">Create Employee</button>
+        </div>
+        <form action="/employee/search" method="get" class="mb-3">
+            <input type="text" name="keyword" placeholder="Enter Search Keyword" class="form-control" />
+            <button type="submit" class="btn btn-primary mt-2">Search</button>
+        </form>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Unique ID</th>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Mobile No.</th>
+                    <th>Designation</th>
+                    <th>Gender</th>
+                    <th>Course</th>
+                    <th>Create Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (employees.length > 0) { %>
+                    <% employees.forEach((employee, index) => { %>
+                        <tr>
+                            <td><%= index + 1 %></td>
+                            <td>
+                                <% if (employee.coverImageURL) { %>
+                                    <img src="<%= employee.coverImageURL %>" alt="Employee Image" width="50">
+                                <% } else { %>
+                                    <img src="/images/default.png" alt="Default Image" width="50">
+                                <% } %>
+                            </td>
+                            <td><%= employee.name %></td>
+                            <td><a href="mailto:<%= employee.email %>"><%= employee.email %></a></td>
+                            <td><%= employee.mobileNo %></td>
+                            <td><%= employee.designation %></td>
+                            <td><%= employee.gender %></td>
+                            <td><%= employee.course %></td>
+                            <td><%= new Date(employee.createdAt).toLocaleDateString() %></td>
+                            <td>
+                                <button class="btn btn-warning btn-sm" onclick="window.location.href='/employee/<%= employee._id %>/edit'">Edit</button>
+                                <form action="/employee/delete/<%= employee._id %>" method="post" style="display:inline-block;">
+                                    <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% }) %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="10" class="text-center">No Employees Found</td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+
+    <%- include("./partials/scripts.ejs") %> 
+</body>
+</html>
